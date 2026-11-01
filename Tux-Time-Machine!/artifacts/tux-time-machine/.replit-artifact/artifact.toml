@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Tux's Time Machine!"
+description = "A classroom-friendly point-and-click history adventure starring Tux, with era puzzles, a source Codex, inventory, accessible controls, and saved progress."
+version = "1.0.0"
+id = "artifacts/tux-time-machine"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24681
+
+[services.development]
+run = "pnpm --filter @workspace/tux-time-machine run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/tux-time-machine", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/tux-time-machine/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24681"
+BASE_PATH = "/"
