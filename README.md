@@ -239,8 +239,6 @@ For local development outside the managed preview, this POSIX-shell command supp
 PORT=5173 BASE_PATH=/ pnpm --filter @workspace/tux-time-machine run dev
 ```
 
-In Replit, use the existing managed game workflow instead of starting a duplicate server.
-
 ## Troubleshooting
 
 | Problem | What to try |
