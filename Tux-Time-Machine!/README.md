@@ -167,7 +167,6 @@ Progress saves automatically in browser local storage, including chapters, inven
 Important limitations:
 
 - Saves belong to the browser and location where you play; there is no cloud synchronization.
-- Moving from the Replit preview to Netlify does not transfer progress.
 - Different browsers, browser profiles, and devices have separate saves.
 - Private browsing, blocked storage, or clearing site data can prevent saving or erase progress.
 - Storage behavior for directly opened `file:` URLs varies by browser. Renaming or moving the HTML file may make an earlier save unavailable.
@@ -176,37 +175,6 @@ Important limitations:
 Use **Replay intro** to watch the story again without changing your save.
 
 To start over, choose **Settings → New game… → Erase and restart**. This deletes gameplay progress, including inventory, sources, modules, fish, and hats. Settings are retained. This cannot be undone within the game.
-
-## Hosting on Netlify
-
-### Option A: manual upload
-
-1. Create a separate upload folder containing only the latest standalone `index.html`.
-2. Upload that folder through Netlify's manual deployment interface.
-3. Open the resulting site.
-
-No build command, database, environment variables, or API keys are needed for this option. Do not upload the entire source tree just to host the standalone game.
-
-### Option B: build from a Git repository
-
-For a repository containing the surrounding Replit project, use:
-
-| Setting | Value |
-|---|---|
-| Base directory | `Tux-Time-Machine!` |
-| Publish directory | `netlify-dist` |
-| Node.js version | `24` |
-| Build command | The command below |
-
-```sh
-pnpm --filter @workspace/tux-time-machine run build:standalone && mkdir -p netlify-dist && cp index.html netlify-dist/index.html
-```
-
-If the contents of `Tux-Time-Machine!` are already at the repository root, leave the base directory blank instead.
-
-Commit the workspace manifests, lockfile, and source files. Do not commit installed `node_modules`; dependencies are installed during the build. The standalone build does not require `PORT`, `BASE_PATH`, or database credentials.
-
-The standalone game uses hash navigation, including for teacher mode, so it does not need an SPA redirect rule.
 
 ## Source layout
 
@@ -270,8 +238,6 @@ For local development outside the managed preview, this POSIX-shell command supp
 ```sh
 PORT=5173 BASE_PATH=/ pnpm --filter @workspace/tux-time-machine run dev
 ```
-
-In Replit, use the existing managed game workflow instead of starting a duplicate server.
 
 ## Troubleshooting
 
